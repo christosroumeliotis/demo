@@ -33,6 +33,9 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Build Dockerfile
-      run: docker build -t test_accenture .
+      run: |
+       echo ${{ secrets.DOCKER_TOKEN }} | docker login -u roumeliotisch --password-stdin
+       docker build -t test_accenture .
+       docker push roumeliotisch/test_accenture
 
     
